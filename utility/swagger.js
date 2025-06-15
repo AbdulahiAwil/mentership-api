@@ -8,11 +8,11 @@ const options = {
       version: '1.0.0',
       description: 'API documentation for our task manager backend'
     },
-    servers: [
-      {
-        url: 'http://localhost:5000'
-      }
-    ],
+     servers: [
+            {
+                url: process.env.NODE_ENV == "development" ? 'http://localhost:5000' : "https://mentorship-api-jys6.onrender.com"
+            }
+        ],
     components: {
       securitySchemes: {
         bearerAuth: {
