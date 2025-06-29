@@ -3,7 +3,7 @@ import './App.css'
 
 import LoginPage from './pages/authPages/LoginPage';
 import RegisterPage from './pages/authPages/RegisterPage';
-import DashboardPage from './pages/dashboard/dashboardPage';
+import DashboardPage from './pages/dashboard/DashboardPage';
 
 import ProtectedRoute from './components/auth/ProtectRoute';
 import AdminProtectedRoute from './components/auth/AdminProtectedRoute';
