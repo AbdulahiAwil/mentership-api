@@ -7,7 +7,7 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 
 import ProtectedRoute from './components/auth/ProtectRoute';
 import AdminProtectedRoute from './components/auth/AdminProtectedRoute';
-import AdminPage from './pages/adminPage/adminPage';
+import AdminPage from './pages/adminPage/AdminPage';
 
 function App() {
   
