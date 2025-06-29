@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router'
 import './App.css'
 
 import LoginPage from './pages/authPages/LoginPage';
-import RegisterPage from './pages/authPages/registerPage';
+import RegisterPage from './pages/authPages/RegisterPage';
 import DashboardPage from './pages/dashboard/dashboardPage';
 
 import ProtectedRoute from './components/auth/ProtectRoute';
