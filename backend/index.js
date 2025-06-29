@@ -1,4 +1,7 @@
 import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 import userRoutes from './routes/users.js'
 import postsRoutes from './routes/posts.js'
 import authRoutes from './routes/auth.js'
@@ -12,9 +15,9 @@ dotenv.config();
 import cors from 'cors'
 import morgan from 'morgan'
 import mongoose from 'mongoose';
-import { logger } from './middlewares/logger.js';
 import { notFound } from './middlewares/notfound.js';
 import { errorHandle } from './middlewares/errorHandle.js';
+
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './utility/swagger.js';
 import { limiter } from './middlewares/rateLimiter.js'
@@ -24,17 +27,14 @@ import { limiter } from './middlewares/rateLimiter.js'
 const app = express()
 const PORT = process.env.PORT;
 
-const users = [
-  {name: "ali", age:27},
-  {name: "ayaan", age:25}
-]
+
 
 
 app.use(helmet());
 app.use(express.json())
 app.use(cors(
   {
-    origin:["http://localhost:5879", "http://dugsiiye.com"]
+    origin:["http://localhost:5173", "http://dugsiiye.com"]
   }
 ))
 
@@ -49,21 +49,35 @@ if(process.env.NODE_ENV == "development") {
    app.use(morgan('dev'))
 }
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use(logger);
 
-app.use('/users', userRoutes)
-app.use('/posts', postsRoutes)
-app.use('/auth', authRoutes)
-app.use('/admin', adminRoutes)
-app.use('/upload', uploadRoutes)
-app.use('/task', taskRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/posts', postsRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/admin', adminRoutes)
+app.use('/api/upload', uploadRoutes)
+app.use('/api/task', taskRoutes)
 
-app.get('/', (req, res) => {
-    res.json(users)
+app.get('/api/health', (req, res) => {
+    res.json("Server is working")
 
 });
+
+// Server frontend in production
+
+if(process.env.NODE_ENV === "production") {
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  // The Server frontend app
+
+  app.get(/.*/, (req, res)=>{
+    res.send(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+  })
+}
 
 app.use(notFound)
 

@@ -15,7 +15,7 @@ export const createTask = async (req, res, next) => {
 
 export const getMyTask = async (req, res, next) =>{
     try {
-        const task = await Task.find({createdBy: req.user._id});
+        const task = await Task.find({createdBy: req.user._id}).sort({createdAt: -1});
         res.status(201).json(task)
     } catch (err) {
         next(err)

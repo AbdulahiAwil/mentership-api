@@ -39,11 +39,11 @@ router.post('/login', login)
 
 // Protected Routes
 
-router.get('/profile', protect, (req, res) =>{
+router.get('/me', protect, async (req, res) => {
     console.log("req.user", req.user)
+    // await new Promise(resolve => setTimeout(resolve, 5000))
     res.json(req.user)
 })
-
 
 
 export default router

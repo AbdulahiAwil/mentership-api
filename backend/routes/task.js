@@ -20,7 +20,7 @@ const router = express.Router()
  */
 
 
-router.get('/' , protect, getMyTask)
+router.get('/',protect ,getMyTask)
 
 /**
  * @swagger
@@ -53,7 +53,7 @@ router.get('/' , protect, getMyTask)
  *         description: Task created
  */
 
-router.post('/', protect, validate(taskValidationSchema), createTask)
+router.post('/',protect, createTask)
 
 /**
  * @swagger
